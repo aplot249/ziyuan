@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import requests, os, sqlite3, time, re, threading
 from contextlib import closing
-from dwz import getdwz
+#from dwz import getdwz
 
 def download_file(video_m3u8, oldpath, newpath):
     with open(oldpath, "wb") as f:
@@ -22,7 +22,7 @@ def download_file(video_m3u8, oldpath, newpath):
 
 def handle_file(video_m3u8, oldpath, newpath):
     # 1.数据库处理
-    conn = sqlite3.connect("ziyuan.db")
+    conn = sqlite3.connect("../ziyuan.db")
     c = conn.cursor()
     c.execute("UPDATE av52_guochan SET token = 1 WHERE link = ?", (video_m3u8,))
     conn.commit()
@@ -52,7 +52,7 @@ def share_file(video_m3u8, oldpath, newpath,video_name):
     sharelink = str(list(res)[0]).replace("\n", "")
     print(sharelink)
 
-    conn = sqlite3.connect("ziyuan.db")
+    conn = sqlite3.connect("../ziyuan.db")
     c = conn.cursor()
     c.execute("UPDATE av52_guochan SET link = ? WHERE sharelink = ?", (video_m3u8,sharelink))
     conn.commit()
@@ -99,7 +99,7 @@ if __name__ == '__main__':
     for i in result_list:
         video_name = re.sub("[“”（）？，、。！【】\s]", "", str(i[0]))  # 片名
         prefix0 = "F:\\videotutorial\\ceshi\\"
-        prefix = "/root/new_52av/"
+        prefix = "/root/ziyuan/"
         oldpath = prefix + "oldvideo/" + video_name + ".mp4"
         newpath = prefix + "newvideo/" + video_name + ".mp4"
         video_m3u8 = str(i[1])  # 片子完整的m3u8链接
