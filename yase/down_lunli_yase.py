@@ -35,7 +35,7 @@ def handle_file(video_m3u8, oldpath, newpath):
     # 1.数据库处理
     conn = sqlite3.connect("../ziyuan.db")
     c = conn.cursor()
-    c.execute("UPDATE yase_lun SET token = 1 WHERE link = ?", (video_m3u8,))
+    c.execute("UPDATE yase_lunli SET token = 1 WHERE link = ?", (video_m3u8,))
     conn.commit()
     conn.close()
     # 2.视频转码处理
