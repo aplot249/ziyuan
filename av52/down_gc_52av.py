@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import requests, os, sqlite3, time, re, threading
 from contextlib import closing
-#from dwz import getdwz
+from dwz import getdwz
 
 def download_file(video_m3u8, oldpath, newpath):
     with open(oldpath, "wb") as f:
