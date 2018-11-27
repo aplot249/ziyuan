@@ -6,7 +6,7 @@ import requests,re,os,sqlite3,threading
 from contextlib import closing
 
 def download_file(video_m3u8,oldpath,newpath):
-    m3u8_response = requests.get(video_m3u8)
+    m3u8_response = requests.get(video_m3u8,timeout=(6, 24))
     ts_list = re.findall(".*ts",m3u8_response.text,re.M)
     with open(oldpath, "wb") as f:
         for ts in ts_list:
@@ -35,7 +35,7 @@ def handle_file(video_m3u8, oldpath, newpath):
     # 1.数据库处理
     conn = sqlite3.connect("../ziyuan.db")
     c = conn.cursor()
-    c.execute("UPDATE yase_lun SET token = 1 WHERE link = ?", (video_m3u8,))
+    c.execute("UPDATE yase_lunli SET token = 1 WHERE link = ?", (video_m3u8,))
     conn.commit()
     conn.close()
     # 2.视频转码处理
