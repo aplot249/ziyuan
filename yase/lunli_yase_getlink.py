@@ -33,8 +33,6 @@ def upload_file(video_m3u8, oldpath, newpath):
         if clean != "Annotations must be specified before other elements in a JSON object":
             break
 
-# quit()
-
 def eachvideo(onepage_detailpage_url_list):
     for i in onepage_detailpage_url_list:
         #http://www.yase123.com/video/?67538-0-0.html
