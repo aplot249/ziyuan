@@ -80,7 +80,7 @@ def eachvideo(onepage_detailpage_url_list):
             # os.system("rm -rf {0}".format(newpath))
 
 url = "http://www.yase123.com/list/?42-1---.html"  # 初始的首页面url
-for count in range(1,120):    #循环120下
+for count in range(2,4):    #循环120下
     conn = sqlite3.connect("../ziyuan.db")
     c = conn.cursor()
     url = "http://www.yase123.com/list/?42-"+str(count)+"---.html"
