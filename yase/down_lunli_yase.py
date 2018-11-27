@@ -6,7 +6,7 @@ import requests,re,os,sqlite3,threading
 from contextlib import closing
 
 def download_file(video_m3u8,oldpath,newpath):
-    m3u8_response = requests.get(video_m3u8,timeout=(6, 24))
+    m3u8_response = requests.get(video_m3u8)
     ts_list = re.findall(".*ts",m3u8_response.text,re.M)
     with open(oldpath, "wb") as f:
         for ts in ts_list:
