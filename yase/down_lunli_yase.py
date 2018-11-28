@@ -1,39 +1,26 @@
-#coding = utf-8
-#__author__:'sareeliu'
+#coding='utf-8'
+#author__:'sareeliu'
 #__date__ : '2018/11/27 13:32'
 
 import requests,re,os,sqlite3,threading
 from contextlib import closing
 
 def download_file(video_m3u8,oldpath,newpath):
-<<<<<<< HEAD
     m3u8_response = requests.get(video_m3u8)
     ts_list = re.findall(".*ts",m3u8_response.text,re.M)
     with open(oldpath, "wb") as f:
         for ts in ts_list:
             ts = '/'.join(re.split('/',video_m3u8)[:-1])+"/"+ts
             print(ts)
-            with closing(requests.get(ts, stream=True)) as r:  # r对应一个ts完整请求
-                for chunk in r.iter_content(chunk_size=1024*1024):  # 对ts大小按1024进行存到硬盘
-                    f.write(chunk)
-                    f.flush()
-                    os.fsync(f.fileno())
-=======
-        m3u8_response = requests.get(video_m3u8)
-        ts_list = re.findall(".*ts",m3u8_response.text,re.M)
-        with open(oldpath, "wb") as f:
-            for ts in ts_list:
-                ts = '/'.join(re.split('/',video_m3u8)[:-1])+"/"+ts
-                print(ts)
-                try:
-                    with closing(requests.get(ts, stream=True)) as r:  # r对应一个ts完整请求
-                        for chunk in r.iter_content(chunk_size=1024*1024):  # 对ts大小按1024进行存到硬盘
-                            f.write(chunk)
-                            f.flush()
-                            os.fsync(f.fileno())
-                except:
-                    pass
->>>>>>> 8cd27861ac8becf785f337101253ba780f9da61d
+            try:
+                with closing(requests.get(ts, stream=True)) as r:  # r对应一个ts完整请求
+                    for chunk in r.iter_content(chunk_size=1024*1024):  # 对ts大小按1024进行存到硬盘
+                        f.write(chunk)
+                        f.flush()
+                        os.fsync(f.fileno())
+            except:
+                pass
+
 
 def upload_file(video_m3u8, oldpath, newpath):
     while True:
@@ -100,4 +87,5 @@ if __name__ == '__main__':
             # 判断正在运行的线程数量,如果小于5则退出while循环,
             if (len(threading.enumerate()) < 8):
                 break
+
 
