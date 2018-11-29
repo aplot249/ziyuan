@@ -43,18 +43,18 @@ def handle_file(video_m3u8, oldpath, newpath):
     conn.commit()
     conn.close()
     # 2.视频转码处理
-    comm = "ffmpeg -i {0} -acodec copy -vcodec copy -f mp4 -bsf:a aac_adtstoasc {1} -y".format(str(oldpath),str(newpath))  # 转码生成新文件
+    comm = "ffmpeg -i {0}  -vcodec copy -f mp4 -strict -2 {1} -y".format(str(oldpath),str(newpath))  # 转码生成新文件
     os.system(comm)
 
 
 def action(video_m3u8, oldpath, newpath,video_name):
     download_file(video_m3u8, oldpath, newpath)
-    handle_file(video_m3u8, oldpath, newpath)
-    upload_file(video_m3u8, oldpath, newpath)
+    #handle_file(video_m3u8, oldpath, newpath)
+    #upload_file(video_m3u8, oldpath, newpath)
     #share_file(video_m3u8, oldpath, newpath,video_name)
     #dwz(video_m3u8, oldpath, newpath)
-    os.system("rm -rf {0}".format(oldpath))
-    os.system("rm -rf {0}".format(newpath))
+    #os.system("rm -rf {0}".format(oldpath))
+    #os.system("rm -rf {0}".format(newpath))
 
 if __name__ == '__main__':
 
@@ -85,7 +85,7 @@ if __name__ == '__main__':
         t.start()
         while True:
             # 判断正在运行的线程数量,如果小于5则退出while循环,
-            if (len(threading.enumerate()) < 8):
+            if (len(threading.enumerate()) < 3):
                 break
 
 
